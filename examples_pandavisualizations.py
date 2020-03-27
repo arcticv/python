@@ -5,6 +5,7 @@ import seaborn as sns    # makes histogram prettier
 import matplotlib.pyplot as plt     # optional color scheme
 
 %matplotlib inline
+# %matplotlib 
 
 
 # data load
@@ -72,3 +73,58 @@ df.plot.hexbin(x='a',y='b',gridsize=25,cmap='coolwarm')
 df2['a'].plot.kde()
 df2.plot.density()
 
+# time series visualization
+stockdata['Adj. Close'].plot(xlim=['2007-01-01','2012-01-01'], ylim=(20,50))
+stockdata['Adj. Close'].plot(xlim=['2007-01-01','2012-01-01'], ylim=(20,50),ls='--',c='red')
+
+# more time series code
+import numpy as np
+import pandas as pd
+import seaborn as sns
+import matplotlib.pyplot as plt 
+import matplotlib.dates as dates
+from matplotlib import pyplot as plt
+%matplotlib inline
+# if turn on dynamic plots, make sure you restart kernel 
+#%matplotlib notebook 
+# read data from yahoo and set parse dates
+df1 = pd.read_csv('stock_data.csv',index_col=0,parse_dates=True)
+df1.head()
+#df1.plot(figsize=(12,8))
+idx = df1.loc['2020-02-01':'2020-03-26']
+idx.head()
+idx = df1.loc['2020-02-01':'2020-03-26'].index
+idx
+stock = df1.loc['2020-02-01':'2020-03-26']['Adj Close']
+stock.head()
+# plotting time
+fig,ax = plt.subplots()
+# this is more than a plot, date time indexed information 
+ax.plot_date(idx,stock,'-')
+# to fix overlapping x-axis
+fig.autofmt_xdate()
+plt.tight_layout()
+# to further enhance x-axis meaning
+ax.xaxis.set_major_locator(dates.MonthLocator())
+ax.xaxis.set_major_formatter(dates.DateFormatter('\n\n%b-%Y'))
+plt.xticks(rotation=45)  # rotation='vertical'   
+# or plt.xticks(x, labels, rotation='vertical') or plt.xticks(np.arange(3), ['Tom', 'Dick', 'Sue']) 
+# turn off ticks
+# plt.xticks([], [])
+# plt.axis('off')
+'''
+plt.tick_params(axis='x',          # changes apply to the x-axis
+                which='both',      # both major and minor ticks are affected
+                bottom=False,      # ticks along the bottom edge are off
+                top=False,         # ticks along the top edge are off
+                labelbottom=True) # labels along the bottom edge are off
+'''
+# to add minor axis
+ax.xaxis.set_minor_locator(dates.WeekdayLocator(byweekday=0))  # 0 is monday, 1 is tuesday
+ax.xaxis.set_minor_formatter(dates.DateFormatter('%d'))   # or %a
+# add grid lines
+ax.xaxis.grid(True)
+ax.yaxis.grid(True)
+# save the figure
+plt.tight_layout() # prevents the x-axis from being cut off during save
+plt.savefig('plot')
