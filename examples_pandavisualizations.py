@@ -3,9 +3,12 @@ import pandas as pd
 import seaborn as sns    # makes histogram prettier
 
 import matplotlib.pyplot as plt     # optional color scheme
-
 %matplotlib inline
-# %matplotlib 
+
+
+# This example is to walk through the different types of charts in pandas
+# There is a full example below for time series data with numerous axes adjustment codes (dates, save down)
+
 
 
 # data load
@@ -40,7 +43,6 @@ plt.style.use('ggplot')
 df1['A'].hist()
 plt.style.use('bmh')
 df1['A'].hist()
-
 
 # area plot that uses the index along the x-axis (kinda like date)
 df2.plot.area(alpha=0.4)
@@ -77,6 +79,8 @@ df2.plot.density()
 stockdata['Adj. Close'].plot(xlim=['2007-01-01','2012-01-01'], ylim=(20,50))
 stockdata['Adj. Close'].plot(xlim=['2007-01-01','2012-01-01'], ylim=(20,50),ls='--',c='red')
 
+
+# full on example to analyze stock data
 # more time series code
 import numpy as np
 import pandas as pd
