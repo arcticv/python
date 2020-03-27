@@ -15,6 +15,7 @@ import matplotlib.pyplot as plt     # optional color scheme
 # remember the index is what they use for x-axis, and the columns are the area/stacks on y-axis 
 df1 = pd.read_csv('df1',index_col=0)
 df2 = pd.read_csv('df2')
+df1.info() # to check the data
 df1.head() # to check the data
 
 '''
@@ -99,6 +100,7 @@ from matplotlib import pyplot as plt
 
 # read data to df1, from yahoo and set parse dates
 df1 = pd.read_csv('stock_data.csv',index_col=0,parse_dates=True)
+df1.info()
 df1.head()
 #df1.plot(figsize=(12,8))   # can plot it to see it
 
