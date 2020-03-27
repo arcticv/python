@@ -1,12 +1,63 @@
-# python
+# Description
+
+Course notebook for Python and VBA
+
+
+# Project Python
+1. visualize
+1. stationarize
+1. plot charts
+1. make model (arima/ML)
+1. make predictions
+
+# Release Notes
+Date | Action
+------------ | -------------
+March 26, 2020 | * Opened repository <br> * Added matplotlib example <br> * Added MSSQL server example
+March 27, 2020 | * Added readme.md
 
 
 
+## Getting Started
+Test
+```
+Give examples
+```
+
+### Installing
+A step by step series of examples that tell you how to get a development env running
+Say what the step will be
+```
+Give the example
+```
+And repeat
+```
+until finished
+```
+End with an example of getting some data out of the system or using it for a little demo
 
 
-# release notes
-March 26, 2020: Opened repository
-                Added matplotlib example
-                Added MSSQL server example
-March 27, 2020: 
+## Testing Deployment
 
+Add additional notes about how to deploy this on a live system
+
+## Built With
+
+* [Dropwizard](http://www.dropwizard.io/1.0.2/docs/) - The web framework used
+
+## Acknowledgments
+* Links to cool people
+  * Readme Sample [PurpleBooth](https://gist.github.com/PurpleBooth/109311bb0361f32d87a2#file-readme-template-md)
+* Inspiration
+* etc
+
+## Authors
+
+* **Vincent** - *Initial work* - [arcticv](https://github.com/arcticv/)
+
+See also the list of [contributors](https://github.com/your/project/contributors) who participated in this project.
+Please read [CONTRIBUTING.md](https://gist.github.com/) for details on our code of conduct, and the process for submitting pull requests to us.
+
+## License
+
+This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md) file for details
