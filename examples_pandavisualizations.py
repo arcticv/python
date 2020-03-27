@@ -110,7 +110,7 @@ fig.autofmt_xdate()
 plt.tight_layout()
 # to further enhance x-axis meaning
 ax.xaxis.set_major_locator(dates.MonthLocator())
-ax.xaxis.set_major_formatter(dates.DateFormatter('\n\n%b-%Y'))
+ax.xaxis.set_major_formatter(dates.DateFormatter('\n\n%b-%Y'))   # ax.xaxis.set_major_formatter(dates.DateFormatter('%B-%d-%a'))
 plt.xticks(rotation=45)  # rotation='vertical'   
 # or plt.xticks(x, labels, rotation='vertical') or plt.xticks(np.arange(3), ['Tom', 'Dick', 'Sue']) 
 # turn off ticks
