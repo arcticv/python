@@ -32,6 +32,7 @@ df.plot.kde
 df.plot.pie
 '''
 
+#########################################################################################################
 # slicing examples
 df3[['A','B']].plot.box()  # only columns A and B
 df3.iloc[0:30].plot.area()    # area plot, slicing only first 30 rows
@@ -41,7 +42,7 @@ stockdata['Adj. Close'].plot(xlim=['2007-01-01','2012-01-01'], ylim=(20,50))
 stockdata['Adj. Close'].plot(xlim=['2007-01-01','2012-01-01'], ylim=(20,50),ls='--',c='red')
 
 
-
+#########################################################################################################
 # histogram for df1 using column A
 df1['A'].hist(bins=30)    
 df3['a'].plot.hist(edgecolor='black', bins=30)
@@ -56,6 +57,8 @@ df3['A'].plot.hist(edgecolor='black', bins=30)
 plt.style.use('bmh')
 df1['A'].hist()
 
+
+#########################################################################################################
 # area plot that uses the index along the x-axis (kinda like date)
 df2.plot.area(alpha=0.4)
 # area plot, slicing only first 30 rows
@@ -63,14 +66,19 @@ df3.iloc[0:30].plot.area()
 plt.legend(loc='center left', bbox_to_anchor=(1.0, 0.5))   # put the legend on the outside of the box
 plt.show()
 
+
+#########################################################################################################
 # bar plot
 df2.plot.bar()
 # stacked bar plot
 df2.plot.bar(stacked=True)
 
+
+#########################################################################################################
 # regular line plots (you have to specify X and Y but for Y you can use the column name)
 df1.plot.line(x=df1.index,    y='B'     ,    figsize=(12,3),lw=1)
 
+#########################################################################################################
 # scatter plot A vs B, then C by color or pass in color map
 df1.plot.scatter(x='A', y='B', c='C')
 # scatter plot by color map
@@ -80,11 +88,14 @@ df1.plot.scatter(x='A', y='B', s=df1['C']*100)
 # scatter plot 
 df3.plot.scatter(x='a',y='b',c='red',s=50,figsize=(12,3))   # s is for size
 
+
+#########################################################################################################
 # box plot to plot "distributions by Column"
 df2.plot.box()  # all columns
 df3[['A','B']].plot.box()  # only columns A and B
 
 
+#########################################################################################################
 # hex heat map
 df = pd.DataFrame(np.random.randn(1000, 2), columns=['a', 'b'])
 # gridsize is size of hexagon
@@ -92,7 +103,7 @@ df.plot.hexbin(x='a',y='b',gridsize=25,cmap='Oranges')
 df.plot.hexbin(x='a',y='b',gridsize=25,cmap='coolwarm')
 
 
-
+#########################################################################################################
 # kernel density estimation KDE plot = kinda like a histogram
 df2['a'].plot.kde()
 df2.plot.density()
@@ -121,7 +132,7 @@ plt.ylabel('Density')
 
 
 
-
+#########################################################################################################
 #########################################################################################################
 # full on example to analyze stock data
 # more time series code
