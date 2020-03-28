@@ -36,6 +36,10 @@ df.plot.pie
 df3[['A','B']].plot.box()  # only columns A and B
 df3.iloc[0:30].plot.area()    # area plot, slicing only first 30 rows
 sub_df1 = df1.loc['2020-02-01':'2020-03-26']  # slice df1 to dates, these dates work as you see them
+# time series visualization - slicing within the plot
+stockdata['Adj. Close'].plot(xlim=['2007-01-01','2012-01-01'], ylim=(20,50))
+stockdata['Adj. Close'].plot(xlim=['2007-01-01','2012-01-01'], ylim=(20,50),ls='--',c='red')
+
 
 
 # histogram for df1 using column A
@@ -87,13 +91,34 @@ df = pd.DataFrame(np.random.randn(1000, 2), columns=['a', 'b'])
 df.plot.hexbin(x='a',y='b',gridsize=25,cmap='Oranges')
 df.plot.hexbin(x='a',y='b',gridsize=25,cmap='coolwarm')
 
+
+
 # kernel density estimation KDE plot = kinda like a histogram
 df2['a'].plot.kde()
 df2.plot.density()
 
-# time series visualization
-stockdata['Adj. Close'].plot(xlim=['2007-01-01','2012-01-01'], ylim=(20,50))
-stockdata['Adj. Close'].plot(xlim=['2007-01-01','2012-01-01'], ylim=(20,50),ls='--',c='red')
+# kde with shaded area underneath
+import seaborn as sns 
+# List of five companies to plot
+columns = ['a', 'b']
+# Iterate through the companies
+for column in columns:
+    # Subset the dataframe to only the company
+    # subset = df3[df3['name'] == column]
+    subset = df3[column]
+    # Draw the density plot
+    # sns.distplot(subset['arr_delay'], hist = False, kde = True, kde_kws = {'linewidth': 3}, label = airline)
+    sns.distplot(subset, hist = False, kde = True, kde_kws = {'shade': True, 'linewidth': 3},
+                 label = column)    
+# Plot Formatting
+plt.legend(prop={'size': 14}, title = 'Company')
+plt.legend(loc='center left', bbox_to_anchor=(1.0, 0.5))   # move the legend outside
+plt.title('Density Plot with Multiple Companies')
+plt.xlabel('Price Change (USD)')
+plt.ylabel('Density')
+
+
+
 
 
 
