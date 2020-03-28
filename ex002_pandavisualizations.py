@@ -40,10 +40,14 @@ sub_df1 = df1.loc['2020-02-01':'2020-03-26']  # slice df1 to dates, these dates 
 # time series visualization - slicing within the plot
 stockdata['Adj. Close'].plot(xlim=['2007-01-01','2012-01-01'], ylim=(20,50))
 stockdata['Adj. Close'].plot(xlim=['2007-01-01','2012-01-01'], ylim=(20,50),ls='--',c='red')
+
 # some datetime magic
 idx = df1.iloc[[0,10]].index
 df1.iloc[[0,10]].plot.area()
 df1.loc[[datetime(2020,2,1),datetime(2020,3,26)]].plot.area()  # does not work: stock = df1.loc['2020-02-01','2020-03-26']['Adj Close']
+# the transpose fixes the plot (plot columns on x axis and use index as y axis using pandas)
+mydata.loc[[datetime(2020,3,20),datetime(2020,3,27)]].T.plot()
+
 
 #########################################################################################################
 # histogram for df1 using column A
