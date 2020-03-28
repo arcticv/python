@@ -44,10 +44,13 @@ stockdata['Adj. Close'].plot(xlim=['2007-01-01','2012-01-01'], ylim=(20,50),ls='
 # some datetime magic
 idx = df1.iloc[[0,10]].index
 df1.iloc[[0,10]].plot.area()
-df1.loc[[datetime(2020,2,1),datetime(2020,3,26)]].plot.area()  # does not work: stock = df1.loc['2020-02-01','2020-03-26']['Adj Close']
+
+# specific dates selection - need datetime conversion = this does not work: stock = df1.loc['2020-02-01','2020-03-26']['Adj Close']
+df1.loc[[datetime(2020,2,1),datetime(2020,3,26)]].plot.area()  
 # the transpose fixes the plot (plot columns on x axis and use index as y axis using pandas)
 mydata.loc[[datetime(2020,3,20),datetime(2020,3,27)]].T.plot()
-
+mydata.loc['2020-03-20':'2020-03-27'].plot()
+mydata.loc[[datetime.strptime('2020-03-20', '%Y-%m-%d'),datetime.strptime('2020-03-27', '%Y-%m-%d')]].T.plot()
 
 #########################################################################################################
 # histogram for df1 using column A
