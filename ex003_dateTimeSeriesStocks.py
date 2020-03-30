@@ -78,8 +78,10 @@ df['Lower 20D'] = df['Close 20D Mean'] - 2*(df['Close'].rolling(20).std())
 df[['Close', 'Upper 20D','Lower 20D']].plot(figsize=(16,6)) 
 # Plot 2 - zoomed in
 df[['Close', 'Upper 20D','Lower 20D']].tail(200).plot(figsize=(16,6)) 
+
+
 ########################################################################################################
-# import using datareader and plot with legend
+# import stock data using datareader and plot with legend
 #
 import pandas_datareader.data as web 
 import datetime
@@ -88,6 +90,7 @@ end = datetime.datetime(2017, 1, 1)
 df1 = web.DataReader('TSLA', 'yahoo', start, end)
 df2 = web.DataReader('F', 'yahoo', start, end)
 df3 = web.DataReader('GM', 'yahoo', start, end)
+#loop formula if you want it
 #symbols = ['AAPL', 'MSFT', 'AABA', 'DB', 'GLD']
 #webData = pd.DataFrame()
 #for stockSymbol in symbols:
@@ -101,9 +104,19 @@ df1['TSLA Close'] = df1['Close']
 df2['Ford Close'] = df2['Close']
 df3['GM Close'] = df3['Close']
 # Plot them
-df1['TSLA Close'].plot(label='Tesla', title='Closing Prices', figsize=[15,5])
+df1['TSLA Close'].plot(label='Tesla', title='Closing Prices', figsize=(15,5))
 df2['Ford Close'].plot(label='Ford')
 df3['GM Close'].plot(label='GM')
 # how do you set a label and legend!?!?!
 plt.legend()
 plt.show()
+# plot the volume
+df1['Volume'].plot(label='Tesla', title='Closing Prices', figsize=(15,5))
+df2['Volume'].plot(label='Ford')
+df3['Volume'].plot(label='GM')
+plt.legend()
+plt.show()
+# find the max volume and max volume date
+df2['Volume'].max()
+df2['Volume'].idxmax() # index max for time stamp
+
