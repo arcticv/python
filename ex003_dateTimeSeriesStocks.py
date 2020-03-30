@@ -119,4 +119,73 @@ plt.show()
 # find the max volume and max volume date
 df2['Volume'].max()
 df2['Volume'].idxmax() # index max for time stamp
+# now, plot the moving average 
+df2['Open'].plot(label='GM Open',figsize=(16,8))
+df2['Open'].rolling(50).mean().plot(label='GM MA50')
+df2['Open'].rolling(200).mean().plot(label='GM MA200')
+plt.legend()
 
+# moving average and standard deviation filled in areas
+df2['Open'].plot(label='GM Open',figsize=(16,8))
+# plt.fill_between(mstd.index, ma - 2 * mstd, ma + 2 * mstd, color='b', alpha=0.2)
+mavg = df2['Open'].rolling(20).mean()
+mstd = df2['Open'].rolling(20).std()
+plt.fill_between(mstd.index, mavg - 2 * mstd, mavg + 2 * mstd, color='gray', alpha=0.2)
+
+# for changes you can do a cumulative sum
+dfDeltas = dfDeltas.cumsum()
+# neat way of creating the x axis (dates) dynamically:
+df3['A'] = pd.Series(list(range(len(df))))
+df3.plot(x='A', y=dfDeltas)
+
+########################################################################################################
+# scatter matrix 
+# source https://pandas.pydata.org/pandas-docs/stable/user_guide/visualization.html#visualization-scatter-matrix
+# build a scatter plot to see how car companies relate
+from pandas.plotting import scatter_matrix 
+# build a single dataframe by joining the columns together
+cars_df = pd.concat([df1['Open'],df2['Open'],df3['Open']],axis=1)
+# add column labels instead of just 3 Opens
+cars_df.columns = ['Tesla Open', 'GM Open', 'Ford Open']
+cars_df.head()
+# this is the scatter matrix to see correlations
+# since so many points, use alpha to see more points, and also add more histogram binds
+scatter_matrix(cars_df,figsize=(8,8), alpha=0.2, hist_kwds={'bins':50})
+
+########################################################################################################
+# red and green candle chart 
+# source https://matplotlib.org/examples/pylab_examples/finance_demo.html
+# build a scatter plot to see how car companies relate
+
+# need to install matplotlib.finance: pip install mpl_finance
+# deprecated: from matplotlib.finance import candlestick_ohlc
+# does not work: from mplfinance import candlestick_ohlc
+from mpl_finance import candlestick_ohlc
+# ohlc = (open, high, low, close) in tuples
+from matplotlib.dates import DateFormatter, date2num, WeekdayLocator, DayLocator, MONDAY
+
+# grab everything in January then reset the index
+ford_reset = df3.loc['2012-01'].reset_index()
+ford_reset.head()
+ford_reset.info()
+# create a numerical value for a time series index because matplotlib is not good at date processing
+ford_reset['date_ax'] = ford_reset['Date'].apply(lambda date: date2num(date))
+ford_reset.head()
+# create columns for OHLC
+list_of_cols = ['date_ax','Open','High','Low','Close']
+# create an array of tuple values
+ford_values = [tuple(vals) for vals in ford_reset[list_of_cols].values ]
+ford_values
+# copy and paste the date formatter code
+mondays = WeekdayLocator(MONDAY)        # major ticks on the mondays
+alldays = DayLocator()              # minor ticks on the days
+weekFormatter = DateFormatter('%b %d')  # e.g., Jan 12
+dayFormatter = DateFormatter('%d')      # e.g., 12
+# Plot function
+fig, ax = plt.subplots()
+fig.subplots_adjust(bottom=0.2)
+ax.xaxis.set_major_locator(mondays)
+ax.xaxis.set_minor_locator(alldays)
+ax.xaxis.set_major_formatter(weekFormatter)
+#ax.xaxis.set_minor_formatter(dayFormatter)
+candlestick_ohlc(ax, ford_values, width=0.3, colorup='g', colordown='r');
