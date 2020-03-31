@@ -189,3 +189,50 @@ ax.xaxis.set_minor_locator(alldays)
 ax.xaxis.set_major_formatter(weekFormatter)
 #ax.xaxis.set_minor_formatter(dayFormatter)
 candlestick_ohlc(ax, ford_values, width=0.3, colorup='g', colordown='r');
+
+########################################################################################################
+# kde chart with bar chart of returns to compare volatilities
+# 
+# calc returns on stock px
+# shift forward 1, instead of -1 because old data shifts the prices forward 1 so you have index 
+df1['returns'] = (df1['Close']/df1['Close'].shift(1)) - 1
+df1['returns'] = df1['Close'].pct_change(1)   # same as above, just another way of writing it
+df2['returns'] = df2['Close'].pct_change(1)   #
+df3['returns'] = df3['Close'].pct_change(1)   # 
+
+# stacked histogram for 3 stocks
+# wider distribution means more volatile
+df1['returns'].hist(bins=100,label='Tesla',figsize=(10,8),alpha=0.4)
+df2['returns'].hist(bins=100,label='GM',alpha=0.4)
+df3['returns'].hist(bins=100,label='Ford',alpha=0.4)
+plt.legend()
+
+# KDE = prettier stacked histogram
+# Kernel Density Estimation shows Tesla is wider than GM and Ford (more volatile) 
+# in other words, a high peak centered around zero is more stable
+df1['returns'].plot(kind='kde',label='Tesla',figsize=(10,8))
+df2['returns'].plot(kind='kde',label='GM',figsize=(10,8))
+df3['returns'].plot(kind='kde',label='Ford',figsize=(10,8))
+plt.legend()
+
+########################################################################################################
+# box plot chart 
+# 
+box_df = pd.concat([df1['returns'],df2['returns'],df3['returns']], axis=1)
+box_df.columns = ['Tesla', 'Ford', 'GM']
+box_df.plot(kind='box', figsize=(8,8))
+# after building the box, analyze the correlation using scatter matrix
+scatter_matrix(box_df, figsize=(8,8),alpha=0.2,hist_kwds={'bins':100});
+# after building scatter matrix, looks like some relationship between GM and Ford
+# so let's build a very specific scatter for these two names for correlation (like Coke and Pepsi, or airlines)
+box_df.plot(kind='scatter',x='Ford',y='GM', alpha=0.5, figsize=(8,8))
+# cumulative cash out return on that date, relative to the start date, assuming you started on Jan 3, 2012
+# create a new column and plot it
+df1['Cumulative Return'] = (1 + df1['returns']).cumprod()
+df2['Cumulative Return'] = (1 + df2['returns']).cumprod()
+df3['Cumulative Return'] = (1 + df3['returns']).cumprod()
+# plot
+df1['Cumulative Return'].plot(label='Tesla',figsize=(16,8))
+df2['Cumulative Return'].plot(label='GM',figsize=(16,8))
+df3['Cumulative Return'].plot(label='Ford',figsize=(16,8))
+plt.legend()
