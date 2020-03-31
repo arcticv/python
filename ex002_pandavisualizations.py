@@ -40,6 +40,9 @@ sub_df1 = df1.loc['2020-02-01':'2020-03-26']  # slice df1 to dates, these dates 
 # time series visualization - slicing within the plot
 stockdata['Adj. Close'].plot(xlim=['2007-01-01','2012-01-01'], ylim=(20,50))
 stockdata['Adj. Close'].plot(xlim=['2007-01-01','2012-01-01'], ylim=(20,50),ls='--',c='red')
+# zoom in to a date range and plot 2 columns
+df[['realgdp','trend']]['2000-03-31':].plot()
+
 
 # some datetime magic
 idx = df1.iloc[[0,10]].index
