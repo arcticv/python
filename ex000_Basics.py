@@ -31,6 +31,14 @@ mystring1 = 'Hello'
 mystring2 = 'J' + mystring1[1:] #Jello    #strings are immutable
 print(mystring2) #Jello
 print(mystring2 + 'is Jello')
+# for loop concatenate
+for value,label in zip(result,labels):
+    print(label + ' : ' +str(value))
+    if result[1] <= 0.05:
+        print('Reject null hypothesis')
+    else:
+        print('Fail to reject null hypothesis')
+
 
 #Multiple strings
 mystring = 'x' * 10
