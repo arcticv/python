@@ -1,5 +1,5 @@
 #Jupyter Notebook Keyboard Shortcuts
-'''
+"""
 shift + tab				check function documentation
 shift + enter 				run cell, select below.
 ctrl + enter 				run cell
@@ -9,7 +9,7 @@ B insert cell below.
 C copy cell.
 V paste cell.
 D , D delete selected cell.
-'''
+"""
 
 # Print Code
 mystring = "Hello World"
