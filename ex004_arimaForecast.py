@@ -315,6 +315,27 @@ from statsmodels.tsa.arima_model import ARIMA
 # SARIMAX = S is for seasonal, X is for exogeneous for external variables
 # for full documentation string --> help(ARIMA) 
 # Some additional docs https://www.statsmodels.org/dev/examples/notebooks/generated/statespace_sarimax_stata.html
+"""
+What does ARIMA(1, 0, 12) mean?
+Specifically for your model, ARIMA(1, 0, 12) means that it you are describing some response variable (Y) by combining a 1st order Auto-Regressive model and a 12th order Moving Average model. A good way to think about it is (AR, I, MA). This makes your model look the following, in simple terms:
+Y = (Auto-Regressive Parameters) + (Moving Average Parameters)
+The 0 in the between the 1 and the 12 represents the 'I' part of the model (the Integrative part) and it signifies a model where you're taking the difference between response variable data - this can be done with non-stationary data and it doesn't seem like you're dealing with that, so you can just ignore it.
+
+What values can be assigned to p, d, q?
+Lots of different whole numbers. There are diagnostic tests you can do to try to find the best values of p,d,q (see part 3).
+
+What is the process to find the values of p, d, q?
+There are a number of ways, and I don't intend this to be exhaustive:
+look at an autocorrelation graph of the data (will help if Moving Average (MA) model is appropriate)
+look at a partial autocorrelation graph of the data (will help if AutoRegressive (AR) model is appropriate)
+look at extended autocorrelation chart of the data (will help if a combination of AR and MA are needed)
+try Akaike's Information Criterion (AIC) on a set of models and investigate the models with the lowest AIC values
+try the Schwartz Bayesian Information Criterion (BIC) and investigate the models with the lowest BIC values
+
+Resource for choosing p,d,q?
+# https://people.duke.edu/~rnau/arimrule.htm
+"""
+
 # Here we have seasonal so use seasonal ARIMA model
 # p=auto-regression to model dependent relationship
 # d=integration is differencing to make series stationary
@@ -374,8 +395,8 @@ final_df[['Milk in Pounds per Cow','forecast']].plot(figsize=(12,8))
 # ARIMA assumes time is an important component
 # why ARIMA doesn't work well for stocks?
 # Financial stock prices tend to be more random, so more Brownian Motion and Monte Carlo
-# https://people.duke.edu/~rnau/arimrule.htm
-# https://stats.stackexchange.com/questions/44992/what-are-the-values-p-d-q-in-arima
+
+
 
 
 
