@@ -227,7 +227,12 @@ df.head() # shows us datetime index of month and some milk
 # alternative = is stationary
 # p value less than 0.05 to reject the null hypothesis
 from statsmodels.tsa.stattools import adfuller
-result = adfuller(df['Milk in Pounds per Cow']) # returns an ugly format with p value, number of lags used, critical values
+# calculate adfuller 
+# returns a tuple, hard to handle
+result = adfuller(df['Milk in Pounds per Cow']) 
+# returns an ugly format: with p value, number of lags used, critical values
+# use a function to unwrap it, see below
+
 
 # build an adf_check function to pull out p value results
 # will succeed if p <= 0.05
@@ -238,7 +243,8 @@ def adf_check(time_series):
     labels = ['ADF Test Statistics','p-value','# of lags used', '# of Observations Used']
     for value,label in zip(result,labels):
         print(label + ' : ' +str(value))
-    
+        
+    # result[1] is the p-value
     if result[1] <= 0.05:
         print('Strong evidence against null hypothesis')
         print('Reject null hypothesis')
@@ -249,22 +255,25 @@ def adf_check(time_series):
         print('Fail to reject null hypothesis')
         print('Data has a unit root and is nonstationary')
         print('Bad')
-  
+
+        
 # usage of the function 
 # run adf check on the original data
 adf_check(df['Milk in Pounds per Cow'])     # seasonality has clearly shown that it is not stationary
 
 # Since non stationary, take a first difference and try again
+# shift it over one time step
 df['First Difference'] = df['Milk in Pounds per Cow'] - df['Milk in Pounds per Cow'].shift(1)
 df['First Difference'].plot()
 plt.show()
-adf_check(df['First Difference'].dropna())
+# dropna because issue with shift(1) missing one value that messes up the adf function
+adf_check(df['First Difference'].dropna()) # looks stationary
 
 # Try second difference and see
 df['Second Difference'] = df['First Difference'] - df['First Difference'].shift(1)
 df['Second Difference'].plot()
 plt.show()
-adf_check(df['Second Difference'].dropna())
+adf_check(df['Second Difference'].dropna()) # try again if first one does not look stationary
 
 # can also take a seasonal difference
 df['Seasonal Difference'] = df['Milk in Pounds per Cow'] - df['Milk in Pounds per Cow'].shift(12) # seasonal diff is 12
@@ -277,6 +286,7 @@ df['Seasonal First Difference'] = df['First Difference'] - df['First Difference'
 df['Seasonal First Difference'].plot()
 plt.show()
 adf_check(df['Seasonal First Difference'].dropna())
+
 
 
 #Step 3############################################################################################################
