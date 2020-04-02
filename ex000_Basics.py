@@ -1,9 +1,9 @@
 #Jupyter Notebook Keyboard Shortcuts
 '''
-shift + tab				 	check function documentation
+shift + tab				check function documentation
 shift + enter 				run cell, select below.
 ctrl + enter 				run cell
-option + enter 				run cell insert below.
+option/alt + enter 			run cell insert below.
 A insert cell above.
 B insert cell below.
 C copy cell.
