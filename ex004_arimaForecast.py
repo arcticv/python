@@ -374,7 +374,7 @@ df.tail()
 
 # Add on more months with empty values, date increment for date range
 from pandas.tseries.offsets import DateOffset
-# df.index[-1] is the last date then add an offset of 1 month, 2 month... not 0,24 but 1,24
+# df.index[-1] is the last date then ADD an offset of 1 month, 2 month... not +0 month because duplicate = not 0,24 but 1,24
 future_dates = [df.index[-1] + DateOffset(months=x) for x in range(1,24)]
 future_dates
 
