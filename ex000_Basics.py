@@ -1,4 +1,5 @@
 #Jupyter Notebook Keyboard Shortcuts
+# Do not use ''' but use """ for block comment
 """
 shift + tab				check function documentation
 shift + enter 				run cell, select below.
@@ -11,10 +12,18 @@ V paste cell.
 D , D delete selected cell.
 """
 
+# Basic Practice: http://codingbat.com/python
+# More Mathematical (and Harder) Practice: https://projecteuler.net/archives
+# List of Practice Problems: http://www.codeabbey.com/index/task_list
+# A SubReddit Devoted to Daily Practice Problems: https://www.reddit.com/r/dailyprogrammer
+# A very tricky website with very few hints and touch problems (Not for beginners but still interesting) http://www.pythonchallenge.com/
+
+
+
 # Print Code
 mystring = "Hello World"
 print(mystring)
-print(mystring[-2])
+print(mystring[-2]) # l
 
 #Slice
 mystring = "0123456789"
@@ -62,6 +71,8 @@ print("The result was {r:1.5f}".format(r=result)) # R:whitespace.decimalsF The r
 name = 'Jose'
 print(f'Hello, his name is {name}') #fstring string variable injection method
 
+
+#######################################################################################################################
 #lists
 my_list = [1,2,3]
 my_list2 = ['STRING', 100, 200]
@@ -112,7 +123,7 @@ myset.add(1) #looks like dictionary with {} but no key value pairs, so not
 myset.add(2)
 myset.add(2) #won't throw error and won't repeat it
 
-
+#######################################################################################################################
 #boolean for comparison
 True
 False
@@ -121,6 +132,18 @@ False
 1 != 2
 b = None #to avoid object not defined yet
 
+
+#comparisons and or not
+'3' == 3 #returns false due to different types
+'Bye' == 'bye' #returns false due to case sensitive
+3.0 == 3 #returns true because both are numbers
+3 != 4 #returns true
+(1 < 2) and (2 > 3)
+(1 < 2) or (2 > 3)
+not (1 != 2)
+
+
+#######################################################################################################################
 #opening files
 myfile = open('file.txt')
 myfile = open('C:\\Users\\Username\\Folder\\test.txt')
@@ -138,23 +161,8 @@ with open('myfile.txt', mode='a') as my_new_file:
 	my_new_file.write('Four\n')
 
 
-#comparisons and or not
-'3' == 3 #returns false due to different types
-'Bye' == 'bye' #returns false due to case sensitive
-3.0 == 3 #returns true because both are numbers
-3 != 4 #returns true
-(1 < 2) and (2 > 3)
-(1 < 2) or (2 > 3)
-not (1 != 2)
-
-# Basic Practice: http://codingbat.com/python
-# More Mathematical (and Harder) Practice: https://projecteuler.net/archives
-# List of Practice Problems: http://www.codeabbey.com/index/task_list
-# A SubReddit Devoted to Daily Practice Problems: https://www.reddit.com/r/dailyprogrammer
-# A very tricky website with very few hints and touch problems (Not for beginners but still interesting) http://www.pythonchallenge.com/
 
 #*************************************************************************************************************
-
 
 # control flows
 hungry = True
@@ -486,7 +494,7 @@ def summer(array_numbers):
 #usage:
 summer([1, 3, 5, 7])
 
-###########################
+#################################################################################################################
 # how to pop off array items
 ###########################
 def codewords(nums):
@@ -521,7 +529,7 @@ def count_primes(num):
 	print(primes)
 	return len(primes)
 	
-
+#################################################################################################################
 # pandas melt
 df = pd.DataFrame({'A': {0: 'a', 1: 'b', 2: 'c'},
                    'B': {0: 1, 1: 3, 2: 5},
@@ -542,6 +550,109 @@ pd.melt(df, id_vars=['A'], value_vars=['B'])
 2  c        B      5
 """
 
+		
+		
+#################################################################################################################
+# lambda functions for dummies
+
+# Example 1
+x = lambda a : a + 10
+print(x(5))   # 15
+
+# Example 2
+# Compare Function vs. Lambda
+def cube(y): 
+    return y*y*y; 
+g = lambda x: x*x*x 
+print(cube(5)) # 125
+print(g(7)) # 343
+
+
+# Example 3
+# Python code to illustrate filter() with lambda() 
+li = [5, 7, 22, 97, 54, 62, 77, 23, 73, 61] 
+final_list = list(filter(lambda x: (x%2 != 0) , li)) 
+print(final_list) # [5, 7, 97, 77, 23, 73, 61]
+
+
+# Example 4 
+# Multi variables
+x = lambda a, b : a * b
+print(x(5, 6))  # 30
+
+      
+# Example 5
+# map() with lambda()  
+# to get double of a list. 
+print("map with lambda function: ")
+li = [5, 7, 22, 97, 54, 62, 77, 23, 73, 61] 
+final_list = list(map(lambda x: x*2 , li)) 
+print(final_list)   # [10, 14, 44, 194, 108, 124, 154, 46, 146, 122]
+
+# Example 6
+# another map example
+x = [2, 3, 4, 5, 6]
+y = map(lambda v : v * 5, x)
+print(list(y))
+
+# late binding closures issue in python
+# Five functions are created; instead all of them just multiply x by 4
+print("with late binding closure: ")
+def create_multipliers():
+    return [lambda x : i * x for i in range(5)]
+for multiplier in create_multipliers():
+    print(multiplier(2))
+    # five 8 are printed: 8, 8, 8, 8, 8
+
+# late binding closures work around 
+print("with late binding closure fixed: ")
+def create_multipliers_fix():
+    return (lambda x, i=i : i * x for i in range(5))
+for multiplier in create_multipliers_fix():
+    print(multiplier(2))
+    # 0, 2, 4, 6,8
+
+# creates iterable and skip the function
+print("another iterable lambda: ")
+another = (lambda i: i + x for x in range(5))
+for multiplier in another:
+    print(multiplier(1))		
+
+"""
+with late binding closure: 
+8
+8
+8
+8
+8
+with late binding closure fixed: 
+0
+2
+4
+6
+8
+another iterable lambda: 
+1
+2
+3
+4
+5
+"""		
+		
+		
+		
+		
+		
+#################################################################################################################
+#################################################################################################################
+#################################################################################################################
+#################################################################################################################
+#################################################################################################################
+#################################################################################################################
+#################################################################################################################
+#################################################################################################################
+
+		
 # hi
 
 
