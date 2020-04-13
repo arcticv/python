@@ -599,7 +599,7 @@ print(list(y))
 # Five functions are created; instead all of them just multiply x by 4
 print("with late binding closure: ")
 def create_multipliers():
-    return [lambda x : i * x for i in range(5)]
+    return [lambda x : i * x for i in range(5)]      # () seems to fix? return (lambda x : i * x for i in range(5))
 for multiplier in create_multipliers():
     print(multiplier(2))
     # five 8 are printed: 8, 8, 8, 8, 8
@@ -607,7 +607,7 @@ for multiplier in create_multipliers():
 # late binding closures work around 
 print("with late binding closure fixed: ")
 def create_multipliers_fix():
-    return (lambda x, i=i : i * x for i in range(5))
+    return [lambda x, i=i : i * x for i in range(5)]
 for multiplier in create_multipliers_fix():
     print(multiplier(2))
     # 0, 2, 4, 6,8
