@@ -71,6 +71,9 @@ print("The result was {r:1.5f}".format(r=result)) # R:whitespace.decimalsF The r
 name = 'Jose'
 print(f'Hello, his name is {name}') #fstring string variable injection method
 
+# Some other ways way number formatting
+print('Mean Height: ', round(np.mean(height_surveys)/12,1), ' feet')
+print('Standard Deviation of Height: ', round(np.var(height_surveys)**0.5 / 12, 1), ' feet')
 
 #######################################################################################################################
 #lists
