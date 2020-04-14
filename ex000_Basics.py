@@ -92,6 +92,17 @@ type(new_list)
 my_list=[1,2,[a,b]]
 my_list[2][1]
 
+#generated random list 10000
+# Calculate stats using single sample
+sample_mean = np.mean(height_surveys[3])
+sample_stdev = np.var(height_surveys[3])**0.5
+# Calculate standard error = sample std dev / sqrt(N) where N = 10 in this example
+std_error = sample_stdev/(height_surveys[3].shape[0])**0.5
+# generate random list of 10000 normally distributed samples (sample mean normal distribution)
+inferred_distribution = [sample_mean + np.random.normal()*\
+                 std_error for i in range(10000)]
+
+
 #dictionaries have use "string" key values, do not need exact index, can't sort (because it is a mapping and not a sequence), use for vlookup but can be fancy lookup of lists/nested lookup
 my_dict = {'key1':'value1','key2':'value2'}
 my_dict['key1']
