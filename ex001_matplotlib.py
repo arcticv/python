@@ -25,7 +25,7 @@ fig = plt.figure()    # create a figure object
 ax1 = fig.add_axes([0,0,1,1])
 ax2 = fig.add_axes([0.2,0.5,0.4,0.4]) # x location, y location, x length, y width
 ax1.plot(x,y,color='blue')
-ax2.plot(x,y,color='blue') # insert plot
+ax2.plot(x,y,color='blue') # insert ax2 plot within ax1 plot
 ax2.set_title('zoom')
 ax2.set_xlabel('x')
 ax2.set_ylabel('y')
