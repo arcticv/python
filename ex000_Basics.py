@@ -550,31 +550,42 @@ def count_primes(num):
 import pandas as pd
 df = pd.read_csv('some_csv.csv')
 df.columns # shows columns 
-df.index()
-len(df.columns)
+df.index
+len(df.index) # number of rows
+len(df.columns) # number of columns
+df.info() # for all the info
+		
+# look at one entry
+example_entry = personnel['Email'].iloc[0]
+example_entry.split('@')[1] # would give hotmail.com
+personnel['Email'].apply(lambda email: email.split('@')[1]) # would also give hotmail.com
+
 # filter comparison AND
 count_amex_and_above95 = df[(df['CC Provider']=='AMEX') & df['Purchase Price'] > 95)].count()
-		
-# group by to see data
-# Can also pass column names as group keys
-df.groupby('column1_type').mean()
-
-#We'll make some arrays for use as keys
-cities = np.array(['NY','LA','LA','NY','NY'])
-month = np.array(['JAN','FEB','JAN','FEB','JAN'])
-#Now using the data from dataset1, group the means by city and month
-df['dataset1'].groupby([cities,month]).mean()
 		
 # unique count of classifications (already sorted)
 df['Job Title'].value_counts()
 
-# lambda filter
+# lambda filter on a text string in CC Exp Date for last 2 digits of '10/25' so 3: = 25
 sum(df['CC Exp Date'].apply(lambda exp: exp[3:]=='25')) # 1033
-
+df[ df['CC Exp Date'].apply(lambda exp: exp[3:]=='25')].count() # 1033
+df[ df['CC Exp Date'].apply(lambda exp: exp[3:]=='25')].value_counts().head(5)
+		
 		
 #################################################################################################################
 # pandas groupby
 
+# group by to see data
+# Can also pass column names as group keys
+df.groupby('column1_type').mean()
+
+# Make some arrays for use as keys
+# Remember np.array(my_list) creates a numpy array
+cities = np.array(['NY','LA','LA','NY','NY'])
+month = np.array(['JAN','FEB','JAN','FEB','JAN'])
+#Now using the data from dataset1, group the means by city and month
+df['dataset1'].groupby([cities,month]).mean()		
+		
 # more group by examples on rows and columns
 import pandas as pd
 import numpy as np
