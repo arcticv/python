@@ -543,6 +543,64 @@ def count_primes(num):
 	print(primes)
 	return len(primes)
 	
+
+#################################################################################################################
+# pandas dataframe basics
+		
+import pandas as pd
+df = pd.read_csv('some_csv.csv')
+df.columns # shows columns 
+df.index()
+len(df.columns)
+# filter comparison AND
+count_amex_and_above95 = df[(df['CC Provider']=='AMEX') & df['Purchase Price'] > 95)].count()
+		
+# group by to see data
+# Can also pass column names as group keys
+df.groupby('column1_type').mean()
+
+#We'll make some arrays for use as keys
+cities = np.array(['NY','LA','LA','NY','NY'])
+month = np.array(['JAN','FEB','JAN','FEB','JAN'])
+#Now using the data from dataset1, group the means by city and month
+df['dataset1'].groupby([cities,month]).mean()
+		
+# unique count of classifications (already sorted)
+df['Job Title'].value_counts()
+
+# lambda filter
+sum(df['CC Exp Date'].apply(lambda exp: exp[3:]=='25')) # 1033
+
+		
+#################################################################################################################
+# pandas groupby
+
+# more group by examples on rows and columns
+import pandas as pd
+import numpy as np
+from pandas import Series,DataFrame
+animals = DataFrame(np.arange(16).reshape(4, 4),
+                   columns=['W', 'X', 'Y', 'Z'],
+                   index=['Dog', 'Cat', 'Bird', 'Mouse'])
+# Now modify certain entries with some NAN values
+animals.loc[1:2, ['W', 'Y']] = np.nan 
+animals
+		
+# Map Rows Index (Dog, Cat, Bird, Mouse) to Categories
+animal_map = {'Dog': 'house', 'Cat': 'house', 'Bird': 'nest','Mouse': 'hole'}
+# Now let's try it with a Series
+animal_series = Series(animal_map)
+# Now let's groupby the Series
+animals.groupby(animal_series, axis=0).sum()
+		
+# Map Columns (W, X, Y, Z) to Categories
+behavior_map = {'W': 'good', 'X': 'bad', 'Y': 'good', 'Z': 'bad'}
+# Now let's try it with a Series
+behav_series = Series(behavior_map)
+# Now let's groupby the Series
+animals.groupby(behav_series, axis=1).count()
+
+		
 #################################################################################################################
 # pandas melt
 df = pd.DataFrame({'A': {0: 'a', 1: 'b', 2: 'c'},
