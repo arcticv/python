@@ -4,11 +4,22 @@ Course notebook for Python and VBA
 
 
 # Project Python
+
+## Forecasting
 1. visualize
 1. stationarize
 1. plot charts
 1. make model (arima/ML)
 1. make predictions
+
+## KNN K Nearest Neighbors Model
+1. Read the file
+1. Impute missing values 
+1. Drop categorical variables (non numerical), drop item ID column, and drop output column
+1. Standarize the inputs (scaling the features)
+1. Create training set
+1. Analyze error (RMSE) on y axis across different k values in x axis - use Elbow Method by choosing minimum error but not too high k (next marginal benefit is not worth it)
+1. Elbow method short cut is using GridSearch algo
 
 # Release Notes
 Date | Action
