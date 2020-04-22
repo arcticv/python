@@ -151,6 +151,15 @@ sns.lmplot(x='Room.Board', y='Grad.Rate', data=df, hue='Private', scatter=True,
           height=6, aspect=1, 
           legend_out=True, scatter_kws={"s": 10})
 
+#########################################################################################################
+# seaborn hist histogram using facetgrid and map
+sns.set_style("whitegrid", {'axes.grid' : False,'axes.edgecolor':'none'})
+fg = sns.FacetGrid(df, hue='PrivateSchoolYN', height=6, aspect=2, palette='coolwarm')
+fg = fg.map(plt.hist,'OutstateTuitionAmount',bins=20,alpha=0.7)
+
+
+#########################################################################################################
+# Seaborn Scatter Plot Example with color map options and linear regression lines
 """ 
 Colormap possible values are: 
 Accent, Accent_r, Blues, Blues_r, BrBG, BrBG_r, BuGn, BuGn_r, BuPu, BuPu_r, CMRmap, CMRmap_r, 
