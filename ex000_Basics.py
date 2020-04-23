@@ -554,12 +554,21 @@ df.index
 len(df.index) # number of rows
 len(df.columns) # number of columns
 df.info() # for all the info
+
+# add a column using apply method (this function converts Yes to 1 and else to 0)
+def converter(private_school):
+    if private_school == 'Yes':
+        return 1
+    else:
+        return 0
+df['Cluster'] = df['Private'].apply(converter) 
 		
-# look at one entry
+# look at one entry and edit it
 example_entry = personnel['Email'].iloc[0]
 df.loc['Cazenovia College', 'Grad.Rate']=100 # sets that value to 100 (do not use the .at function will give slicer dataframe warning)
+# use lambda function to split email		
 example_entry.split('@')[1] # would give hotmail.com
-personnel['Email'].apply(lambda email: email.split('@')[1]) # would also give hotmail.com
+host = personnel['Email'].apply(lambda email: email.split('@')[1]) # would also give hotmail.com
 
 # filter comparison AND
 count_amex_and_above95 = df[(df['CC Provider']=='AMEX') & df['Purchase Price'] > 95)].count()
