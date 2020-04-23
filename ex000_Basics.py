@@ -557,6 +557,7 @@ df.info() # for all the info
 		
 # look at one entry
 example_entry = personnel['Email'].iloc[0]
+df.loc['Cazenovia College', 'Grad.Rate']=100 # sets that value to 100 (do not use the .at function will give slicer dataframe warning)
 example_entry.split('@')[1] # would give hotmail.com
 personnel['Email'].apply(lambda email: email.split('@')[1]) # would also give hotmail.com
 
