@@ -22,7 +22,7 @@ Course notebook for Python and VBA
 1. Elbow method short cut is using GridSearch algo
 
 ## Python and PowerBI
-1. Data pulled in comes through dataset['Date', 'ColumnA']
+1. Data pulled in comes through <b>dataset</b>['Date', 'ColumnA']
 1. Pandas is implicitly called. You can access it using pandas.DataFrame()
 1. Do not import entire sklearn, it'll be very slow
 1. Try not to create dataframes within because csv files are generated on the fly that may increase size
