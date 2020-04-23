@@ -21,11 +21,18 @@ Course notebook for Python and VBA
 1. Analyze error (RMSE) on y axis across different k values in x axis - use Elbow Method by choosing minimum error but not too high k (next marginal benefit is not worth it)
 1. Elbow method short cut is using GridSearch algo
 
+## Python and PowerBI
+1. Data pulled in comes through dataset['Date', 'ColumnA']
+1. Pandas is implicitly called. You can access it using pandas.DataFrame()
+1. Do not import entire sklearn, it'll be very slow
+1. Try not to create dataframes within because csv files are generated on the fly that may increase size
+
 # Release Notes
 Date | Action
 ------------ | -------------
 March 26, 2020 | * Opened repository <br> * Added matplotlib example <br> * Added MSSQL server example
 March 27, 2020 | * Added readme.md
+April 23, 2020 | * Update for PowerBI
 
 
 
