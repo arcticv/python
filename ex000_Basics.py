@@ -508,6 +508,19 @@ def summer(array_numbers):
 #usage:
 summer([1, 3, 5, 7])
 
+
+#################################################################################################################
+# how to enumerate an array with identifiers
+###########################
+# enumerate the first 10 messages (0 to 9)
+for message_no, message in enumerate(messages[:10]):
+	print(message_no, message)
+	print('\n')
+		
+		
+		
+		
+		
 #################################################################################################################
 # how to pop off array items
 ###########################
