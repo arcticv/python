@@ -643,8 +643,70 @@ pd.melt(df, id_vars=['A'], value_vars=['B'])
 2  c        B      5
 """
 
+#################################################################################################################		
+# Pandas DataFrames - Join/Merge/Pivot Table Recommender System		
+
+# read specific columns
+column_names = ['user_id', 'item_id', 'rating', 'timestamp']
+df = pd.read_csv('u.data', sep='\t', names=column_names)
 		
+# get list of movie titles		
+movie_titles = pd.read_csv("Movie_Id_Titles")
+movie_titles.head()
 		
+# merge two dataframes together using Movie ID (to get the text titles and ratings)
+df = pd.merge(df,movie_titles,on='item_id')
+df.head()		
+		
+# create a dataframe with average ratings and sort them and take a look at the top of the data
+df.groupby('title')['rating'].mean().sort_values(ascending=False).head()		
+df.groupby('title')['rating'].count().sort_values(ascending=False).head()
+# average ratings dataframe
+ratings = pd.DataFrame(df.groupby('title')['rating'].mean())
+ratings.head()
+# number of ratings dataframe
+ratings['num of ratings'] = pd.DataFrame(df.groupby('title')['rating'].count())
+ratings.head()
+
+# visualize outlier data in number of ratings - notice a lot of films only had one person rate (distribution skewed left x-axis)
+sns.set_style('white')
+plt.figure(figsize=(15,8))
+ratings['num of ratings'].hist(bins=70)
+# visualize outlier data in average ratings - notice a lot of films only had one person rate (concentration on ends, 1 and 5)
+plt.figure(figsize=(10,4))
+ratings['rating'].hist(bins=70)
+# create a joint plot to see how the ratings and number of ratings are distributed
+sns.jointplot(x='rating',y='num of ratings',data=ratings,alpha=0.5)
+
+# create recommendation matrix using simple correlations by user_id
+# Step 1: the matrix will have all the users (each row), all titles (each column), and ratings (in the values) 
+moviemat = df.pivot_table(index='user_id',columns='title',values='rating')
+moviemat.head() # creates a massive dataset = 944 rows × 1664 columns (excel would explode)
+# understand your data - sort the values to see the highest number of ratings (ascending = False)
+ratings.sort_values('num of ratings', ascending=False).head(10)
+
+# Step 2: select top two movies and make recommendation - if someone likes this movie what else they could like (by highest corr)
+# get all users and Star Wars rating (would have some NaN if no rating)
+starwars_user_ratings = moviemat['Star Wars (1977)'] # rows = all users, one column = star wars rating
+# get all users and Liar Liar rating (would have some NaN if no rating)
+liarliar_user_ratings = moviemat['Liar Liar (1997)']
+# so the .corrwith creates a correlation against two dataframes
+# Compute pairwise correlation between rows or columns of DataFrame with rows or columns of Series or DataFrame.  
+# DataFrames are first aligned along both axes before computing the correlations. 
+# 944 rows × 1664 columns vs. 944 rows x 1 columns
+similar_to_starwars = moviemat.corrwith(starwars_user_ratings)  # returns 1664 rows movies and 1 correlation number in a Series
+similar_to_liarliar = moviemat.corrwith(liarliar_user_ratings)
+# Put series into a dataframe
+corr_starwars = pd.DataFrame(similar_to_starwars,columns=['Correlation'])
+# Clean up the dataframe by dropping the NaN
+corr_starwars.dropna(inplace=True)
+corr_starwars.head()
+
+
+
+
+
+
 #################################################################################################################
 # lambda functions for dummies
 
@@ -737,7 +799,6 @@ another iterable lambda:
 from IPython.display import Image
 url = 'http://upload.wikimedia.org/wikipedia/commons/5/56/Kosaciec_szczecinkowaty_Iris_setosa.jpg'
 Image(url,width=300, height=300)		
-		
 		
 		
 		
