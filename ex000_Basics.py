@@ -696,14 +696,26 @@ liarliar_user_ratings = moviemat['Liar Liar (1997)']
 # 944 rows × 1664 columns vs. 944 rows x 1 columns
 similar_to_starwars = moviemat.corrwith(starwars_user_ratings)  # returns 1664 rows movies and 1 correlation number in a Series
 similar_to_liarliar = moviemat.corrwith(liarliar_user_ratings)
+similar_to_starwars # title and correlation in a series
 # Put series into a dataframe
 corr_starwars = pd.DataFrame(similar_to_starwars,columns=['Correlation'])
 # Clean up the dataframe by dropping the NaN
 corr_starwars.dropna(inplace=True)
 corr_starwars.head()
 
-
-
+# Step 3: sort data by highest correlation and pull out results that do not make sense
+corr_starwars.sort_values('Correlation',ascending=False).head(10)
+# look back to chart and see that the cut off is around 100 reviews, so add the number of ratings to the correlation
+# the join method requires that the Index is the same (in this case it is, it is the Title)
+corr_starwars = corr_starwars.join(ratings['num of ratings'])
+corr_starwars.head()
+# apply the filter (note ascending=false to get highest first)
+corr_starwars[corr_starwars['num of ratings']>100].sort_values('Correlation',ascending=False).head()
+# do the same for liar liar lovers
+corr_liarliar = pd.DataFrame(similar_to_liarliar,columns=['Correlation'])
+corr_liarliar.dropna(inplace=True)
+corr_liarliar = corr_liarliar.join(ratings['num of ratings'])
+corr_liarliar[corr_liarliar['num of ratings']>100].sort_values('Correlation',ascending=False).head()
 
 
 
