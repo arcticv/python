@@ -802,7 +802,20 @@ print(final_list)   # [10, 14, 44, 194, 108, 124, 154, 46, 146, 122]
 x = [2, 3, 4, 5, 6]
 y = map(lambda v : v * 5, x)
 print(list(y))
-
+		
+# Example 7 - to use in Spark
+clean = text_string.map(lambda line: line[1:] if line[0] == '#' else line)
+# create a TUPLE grab State and Amount
+step1 = clean.map(lambda lst: (lst[3], lst[-1])   )
+# ReKey = Reduce by Key (like GroupBy) and convert to Float so the + works
+step2 = step1.reduceByKey(lambda amt1,amt2 : float(amt1) + float(amt2))
+# Get rid of title (first line)
+step3 = step2.filter(lambda x: not x[0]=='State')
+# Sort Results by Amount
+step4 = step3.sortBy(lambda stAmount: stAmount[1],ascending=False)
+# Perform the action
+step4.collect()
+	      
 # late binding closures issue in python
 # Five functions are created; instead all of them just multiply x by 4
 print("with late binding closure: ")
