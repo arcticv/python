@@ -141,6 +141,23 @@ plt.title('Density Plot with Multiple Companies')
 plt.xlabel('Price Change (USD)')
 plt.ylabel('Density')
 
+
+#########################################################################################################
+# Seaborn Count Plot with sorted order along x axis
+plt.figure(figsize=(12,5))
+# create an order array for seaborn countplot
+sub_grade_order = sorted(df['sub_grade'].unique())
+sns.countplot(x='sub_grade',data=df,order=sub_grade_order, palette='coolwarm')
+
+
+#########################################################################################################
+# Seaborn Heatmap with labels
+# Correlation Heatmap
+plt.figure(figsize=(12,10))
+sns.heatmap(df.corr(),annot=True, cmap='viridis')
+plt.ylim(10,0)
+# notice loan amount and installment have almost perfect correlation
+
 #########################################################################################################
 # Seaborn Scatter Plot Example with color map options and linear regression lines
 
