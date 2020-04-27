@@ -599,8 +599,12 @@ df['loan_repaid'] = df['loan_status'].apply(lambda status: status=='Fully Paid')
 df['loan_repaid'] = df['loan_status'].apply(lambda x : True if (x > 30 and x < 20) else False) # returns column of True/False
 df['loan_repaid'] = df['loan_status'].apply(lambda x : 1 if (x == 'Fully Paid') else 0) # returns column of 1/0
 df.drop('loan_status', axis=1, inplace=True) # remove text row
-		
-		
+
+# another way to create dummy columns (without lambda)
+df['verification_status'].value_counts() # see what the columns will be
+statuses = pd.get_dummies(df['verification_status'], drop_first=True) # drop first for machine learning but can remove
+
+
 #################################################################################################################
 # pandas groupby
 
