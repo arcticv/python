@@ -774,19 +774,20 @@ reversal('asdf') # fdsa
 # Multiple entries
 addermulti = lambda x,y: x+y
 addermulti(3,3)
-		
+# Multi variables
+x = lambda a, b : a * b
+print(x(5, 6))  # 30
+
 # Example 3
 # Python code to illustrate filter() with lambda() 
 li = [5, 7, 22, 97, 54, 62, 77, 23, 73, 61] 
 final_list = list(filter(lambda x: (x%2 != 0) , li)) 
 print(final_list) # [5, 7, 97, 77, 23, 73, 61]
 
-
-# Example 4 
-# Multi variables
-x = lambda a, b : a * b
-print(x(5, 6))  # 30
-
+# Example 4 - removal of illegal character - return position 1 and onwards if first entry has # ex) #EVENTID else line
+text_string.map(lambda line: line[1:] if line[0] == '#' else line)
+# string tokenization token split 
+text_string.map(lambda line: line.split())
       
 # Example 5
 # map() with lambda()  
