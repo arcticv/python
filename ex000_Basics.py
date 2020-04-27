@@ -749,15 +749,32 @@ corr_liarliar[corr_liarliar['num of ratings']>100].sort_values('Correlation',asc
 x = lambda a : a + 10
 print(x(5))   # 15
 
-# Example 2
+# Example 2a
 # Compare Function vs. Lambda
-def cube(y): 
-    return y*y*y; 
-g = lambda x: x*x*x 
+# put it all in one line, get rid of return, get rid of parenthesis, get rid of name
+def cube(y): return y*y*y; 
+g =       lambda x: x*x*x 
 print(cube(5)) # 125
 print(g(7)) # 343
 
+# Example 2b
+# Compare if even
+even = lambda num: num%2 == 0
+even(4) # True
+even(3) # False
 
+# Return first letter of string
+first = lambda s: s[0]
+first('asdf') # a
+
+# Return reverse order of string
+reversal = lambda s: s[::-1]
+reversal('asdf') # fdsa
+
+# Multiple entries
+addermulti = lambda x,y: x+y
+addermulti(3,3)
+		
 # Example 3
 # Python code to illustrate filter() with lambda() 
 li = [5, 7, 22, 97, 54, 62, 77, 23, 73, 61] 
