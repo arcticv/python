@@ -158,6 +158,9 @@ sns.heatmap(df.corr(),annot=True, cmap='viridis')
 plt.ylim(10,0)
 # notice loan amount and installment have almost perfect correlation
 
+# Seaborn Heatmap visualize nulls
+sns.heatmap(df.isnull(),yticklabels=False,cbar=False,cmap='viridis')
+
 #########################################################################################################
 # Seaborn Scatter Plot Example with color map options and linear regression lines
 
