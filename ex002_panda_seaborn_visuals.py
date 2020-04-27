@@ -149,6 +149,12 @@ plt.figure(figsize=(12,5))
 sub_grade_order = sorted(df['sub_grade'].unique())
 sns.countplot(x='sub_grade',data=df,order=sub_grade_order, palette='coolwarm')
 
+# Zoom in on Grade F and Grade G
+df2 = df[(df['grade']=='F') | (df['grade']=='G')]
+sub_grade_order = sorted(df2['sub_grade'].unique())
+# create an order array for seaborn countplot
+sns.countplot(x='sub_grade',data=df2, order=sub_grade_order, palette='coolwarm',hue='loan_status')
+
 
 #########################################################################################################
 # Seaborn Heatmap with labels
